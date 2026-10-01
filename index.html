@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VCUTS — Video Editing by Vasanth</title>
+<meta name="description" content="Professional video editing for Reels, Shorts, YouTube and brands. Pick a slot and book in minutes.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%23e8323e"/><path d="M24 18v28l24-14z" fill="white"/></svg>'>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0c; --panel:#101014; --panel2:#15151a;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.18);
+  --txt:#f4f2ef; --txt2:#a3a1a8; --txt3:#6d6b73;
+  --red:#e8323e; --red2:#8f1020;
+  --grad:linear-gradient(120deg,var(--red),var(--red2));
+  --ok:#2fbf71; --warn:#e2a00e;
+  --f:'Archivo',Arial,sans-serif; --m:'Space Mono',Courier,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font:400 16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--red);color:#fff}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.wrap{width:min(1080px,calc(100% - 36px));margin:0 auto}
+.ic{width:16px;height:16px;fill:currentColor;flex:none}
+/* type */
+.k{display:inline-flex;align-items:center;gap:10px;font:700 11px/1 var(--m);letter-spacing:.24em;text-transform:uppercase;color:var(--txt3)}
+.k::before{content:"///";color:var(--red);letter-spacing:0}
+.h1{font-weight:900;text-transform:uppercase;letter-spacing:-.015em;line-height:.97;font-size:clamp(2.4rem,6.5vw,4.6rem)}
+.h2{font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1;font-size:clamp(1.7rem,4vw,2.6rem);margin:12px 0 10px}
+.rd{color:var(--red)}
+.gradtx{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--txt2);max-width:56ch;font-size:1.02rem}
+.sec{padding:84px 0}
+/* buttons / chips */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font:700 12px/1 var(--f);letter-spacing:.12em;text-transform:uppercase;padding:15px 26px;border-radius:999px;transition:transform .25s,box-shadow .25s,filter .25s;white-space:nowrap}
+.btn .ic{width:15px;height:15px}
+.btn.solid{background:var(--grad);color:#fff;box-shadow:0 10px 26px -10px rgba(232,50,62,.55)}
+.btn.solid:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn.line{border:1px solid var(--line2);color:var(--txt);background:rgba(255,255,255,.02)}
+.btn.line:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px)}
+.btn.dark{background:#191920;border:1px solid var(--line)}
+.btn.dark:hover{background:#20202a}
+.btn.sm{padding:10px 16px;font-size:11px}
+.btn.big{padding:18px 32px;font-size:13px}
+.btn[disabled]{opacity:.35;pointer-events:none}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;font:700 10.5px/1 var(--m);letter-spacing:.1em;color:var(--txt2)}
+.chip i{width:7px;height:7px;border-radius:99px;background:var(--red);flex:none}
+.tag{display:inline-block;padding:4px 10px;border-radius:6px;font:700 9.5px/1 var(--m);letter-spacing:.12em;background:rgba(232,50,62,.12);color:#ff8b93;border:1px solid rgba(232,50,62,.3);vertical-align:middle}
+/* nav */
+#nav{position:fixed;top:0;left:0;right:0;z-index:900;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+#nav.scr{background:rgba(10,10,12,.9);backdrop-filter:blur(14px);border-color:var(--line)}
+.nv-in{height:64px;display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center;gap:10px;font:900 17px/1 var(--f)}
+.lgm{width:30px;height:30px;border-radius:9px;background:var(--grad);position:relative;flex:none}
+.lgm::after{content:'';position:absolute;left:11px;top:9px;border-left:8px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent}
+.nv-links{display:flex;gap:4px;margin-left:auto}
+.nv-links a{font:600 12px/1 var(--f);letter-spacing:.14em;text-transform:uppercase;padding:10px 13px;border-radius:8px;color:var(--txt2)}
+.nv-links a:hover,.nv-links a.on{color:var(--txt);background:rgba(255,255,255,.05)}
+.nv-act{display:flex;align-items:center;gap:10px}
+.icb{width:38px;height:38px;border-radius:99px;border:1px solid var(--line);display:grid;place-items:center;color:var(--txt2)}
+.icb:hover{color:var(--red);border-color:var(--red)}
+.icb .ic{width:18px;height:18px}
+.burger{display:none;width:38px;height:38px;border:1px solid var(--line);border-radius:99px;place-items:center}
+.burger svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+@media(max-width:800px){
+  .nv-links{display:none;position:fixed;top:64px;left:0;right:0;background:#0b0b0e;border-bottom:1px solid var(--line);flex-direction:column;padding:12px 20px;gap:4px}
+  .nv-links.open{display:flex}
+  .burger{display:grid}
+  .nv-act .btn{display:none}
+}
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:110px 0 90px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 45% at 80% 25%,rgba(232,50,62,.14),transparent 70%),radial-gradient(45% 50% at 10% 90%,rgba(143,16,32,.13),transparent 72%)}
+.hero-in{position:relative}
+.hero .h1{margin:20px 0 22px}
+.hero .sub{margin-bottom:32px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+.mq{position:absolute;left:0;right:0;bottom:0;padding:13px 0;border-top:1px solid var(--line);background:rgba(10,10,12,.7);overflow:hidden}
+.mq-in{display:flex;gap:10px;width:max-content;animation:mq 42s linear infinite}
+.mq-in img{height:62px;width:110px;object-fit:cover;border-radius:8px;opacity:.85}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;border-block:1px solid var(--line);padding:44px 0}
+.stats b{font:900 clamp(1.8rem,4vw,2.8rem)/1 var(--f);display:block}
+.stats b em{font-style:normal;color:var(--red)}
+.stats span{font:400 10.5px var(--m);letter-spacing:.18em;color:var(--txt3);text-transform:uppercase}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr;gap:26px 10px}}
+/* work scroll */
+.hsc{display:grid;grid-auto-flow:column;grid-auto-columns:min(330px,80vw);gap:16px;overflow-x:auto;padding:4px 4px 20px;scrollbar-width:none}
+.hsc::-webkit-scrollbar{display:none}
+.fcard{scroll-snap-align:start;border-radius:16px;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
+.fim{position:relative}
+.fim img{aspect-ratio:16/9;object-fit:cover;width:100%}
+.fim .fdur{position:absolute;right:10px;bottom:10px;background:rgba(8,8,10,.85);padding:4px 9px;border-radius:6px;font:700 10.5px var(--m)}
+.fbd{padding:15px 17px}
+.fbd h3{font:800 16px/1.25 var(--f);margin:9px 0 5px}
+.fbd p{color:var(--txt2);font-size:13px}
+/* services rows */
+.srow{display:grid;grid-template-columns:52px 1.2fr 1.4fr auto;gap:20px;align-items:center;padding:24px 20px;border-top:1px solid var(--line);transition:background .2s}
+.srow:last-child{border-bottom:1px solid var(--line)}
+.srow:hover{background:rgba(255,255,255,.02)}
+.srow .sn{font:700 12px var(--m);color:var(--txt3)}
+.srow h3{font:800 19px/1.2 var(--f);text-transform:uppercase}
+.srow .sd{color:var(--txt2);font-size:13.5px}
+.srow .smt{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.srow .sm{font:400 11px var(--m);color:var(--txt3)}
+.srow .sm b{display:block;color:var(--txt);font-size:14px;letter-spacing:0}
+@media(max-width:760px){.srow{grid-template-columns:38px 1fr}.srow .sd,.srow .smt{grid-column:2/3}}
+/* why */
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.wcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+.wcard h3{font:800 15px/1.3 var(--f);text-transform:uppercase;margin-bottom:7px;color:var(--red)}
+.wcard p{color:var(--txt2);font-size:13.5px}
+/* cta band */
+.ctab{position:relative;overflow:hidden;border-radius:20px;border:1px solid rgba(232,50,62,.35);padding:60px 30px;text-align:center;background:radial-gradient(70% 120% at 50% -20%,rgba(232,50,62,.2),var(--panel) 60%)}
+.ctab h2{font:900 clamp(1.7rem,4.5vw,2.8rem)/1 var(--f);text-transform:uppercase;margin-bottom:12px}
+.ctab p{color:var(--txt2);max-width:44ch;margin:0 auto 26px}
+.ctab .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* footer */
+.ft{border-top:1px solid var(--line);background:#0c0c0f;padding:46px 0 26px;margin-top:30px}
+.ft-in{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap}
+.ft a.fl{display:block;padding:4px 0;color:var(--txt2);font-size:14px}
+.ft a.fl:hover{color:var(--red)}
+.ft h4{font:700 10.5px var(--m);letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-bottom:12px}
+.ft-b{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--txt3);font:400 11.5px var(--m);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+/* ============ booking ============ */
+.bkwrap{padding:110px 0 90px;min-height:100vh;background:radial-gradient(50% 25% at 50% 0%,rgba(232,50,62,.07),transparent 70%)}
+.stepper{display:flex;align-items:center;margin:30px 0 26px;overflow-x:auto;scrollbar-width:none}
+.stepper::-webkit-scrollbar{display:none}
+.stp{display:flex;align-items:center;gap:8px;cursor:pointer;flex:none}
+.stpn{width:32px;height:32px;border-radius:99px;border:1px solid var(--line2);display:grid;place-items:center;font:700 12px var(--m);color:var(--txt2);background:var(--panel)}
+.stp.cur .stpn{background:var(--grad);border-color:transparent;color:#fff}
+.stp.done .stpn{background:rgba(232,50,62,.12);border-color:rgba(232,50,62,.4);color:var(--red)}
+.stpl{font:700 10px var(--m);letter-spacing:.12em;color:var(--txt3);text-transform:uppercase}
+.stp.cur .stpl{color:var(--txt)}
+.stln{flex:1;min-width:12px;height:1px;background:var(--line);margin:0 8px}
+.bcard{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:30px;min-height:280px}
+@media(max-width:600px){.bcard{padding:20px}}
+.btitle{font:800 16px var(--f);text-transform:uppercase;margin-bottom:18px}
+.bnav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;padding-top:22px;border-top:1px dashed var(--line2);flex-wrap:wrap}
+/* step1 services */
+.svclist{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:680px){.svclist{grid-template-columns:1fr}}
+.svcr{position:relative;text-align:left;display:flex;flex-direction:column;gap:6px;padding:18px;border:1px solid var(--line);border-radius:14px;background:#0d0d11;transition:border-color .2s,transform .2s}
+.svcr:hover{border-color:var(--line2);transform:translateY(-2px)}
+.svcr.on{border-color:var(--red);background:rgba(232,50,62,.07)}
+.svch{font:800 15.5px/1.25 var(--f);text-transform:uppercase;padding-right:30px}
+.svcm{font:700 11.5px var(--m);color:var(--txt3)}
+.svcm b{color:var(--red)}
+.svcd{color:var(--txt2);font-size:12.5px}
+.svck{position:absolute;right:14px;top:14px;width:24px;height:24px;border-radius:99px;border:1px solid var(--line2);display:grid;place-items:center;color:transparent}
+.svcr.on .svck{background:var(--grad);border-color:transparent;color:#fff}
+.svck .ic{width:13px;height:13px}
+/* step2 dates + seats */
+.dstrip{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none}
+.dstrip::-webkit-scrollbar{display:none}
+.dchip{flex:none;width:82px;padding:12px 6px;border:1px solid var(--line);border-radius:13px;background:#0d0d11;text-align:center;transition:border-color .2s}
+.dchip .dw{font:700 9.5px var(--m);letter-spacing:.2em;color:var(--txt3);text-transform:uppercase}
+.dchip .dd{font:900 22px/1.15 var(--f)}
+.dchip .dm{font:700 9.5px var(--m);letter-spacing:.2em;color:var(--txt3);text-transform:uppercase}
+.dchip .dn{display:block;margin-top:5px;font:700 9px var(--m);color:var(--ok)}
+.dchip.on{border-color:var(--red);background:rgba(232,50,62,.08)}
+.dchip.on .dn{color:var(--red)}
+.screen{height:24px;border:2px solid rgba(232,50,62,.5);border-bottom:none;border-radius:50% 50% 0 0/100% 100% 0 0;margin:14px 10px 4px;position:relative}
+.screen span{position:absolute;left:50%;transform:translateX(-50%);top:7px;font:700 9px var(--m);letter-spacing:.32em;color:rgba(232,50,62,.85);white-space:nowrap}
+.seatgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:11px;margin:18px 0 6px}
+.seat{min-height:78px;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid var(--line);background:#0d0d11;transition:transform .2s,border-color .2s}
+.seat .st{font:700 14px var(--m)}
+.seat .ss{font:700 8px var(--m);letter-spacing:.16em;color:var(--txt3)}
+.seat.available:hover{border-color:var(--red);transform:translateY(-3px)}
+.seat.selected{background:var(--grad);border-color:transparent;color:#fff;transform:scale(1.06);box-shadow:0 12px 26px -8px rgba(232,50,62,.6)}
+.seat.selected .ss{color:rgba(255,255,255,.85)}
+.seat.booked{background:repeating-linear-gradient(135deg,#161014 0 7px,#221318 7px 14px);border-color:rgba(232,50,62,.18);color:#8c3a41;cursor:not-allowed}
+.seat.booked .st{text-decoration:line-through}
+.seat.held{border:1px dashed var(--warn);color:var(--warn);cursor:not-allowed}
+.seat.blocked{background:#0c0c0f;color:var(--txt3);cursor:not-allowed}
+.seat.shake{animation:shk .25s 2}
+@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:14px 0 2px;border-top:1px dashed var(--line2)}
+.legend span{display:flex;gap:7px;align-items:center;font:700 9.5px var(--m);letter-spacing:.1em;color:var(--txt3);text-transform:uppercase}
+.lg{width:15px;height:15px;border-radius:5px;border:1px solid var(--line)}
+.lg.open{background:#0d0d11}.lg.sel{background:var(--grad);border-color:transparent}
+.lg.booked{background:repeating-linear-gradient(135deg,#161014 0 4px,#241317 4px 8px);border-color:rgba(232,50,62,.3)}
+.lg.held{border:1px dashed var(--warn)}.lg.blocked{background:#0c0c0f}
+.sumrow{display:flex;gap:11px;flex-wrap:wrap;margin-top:14px}
+.sum{flex:1;min-width:100px;padding:11px 14px;border:1px solid var(--line);border-radius:11px;background:#0d0d11}
+.sum b{display:block;font:900 20px/1.1 var(--f)}
+.sum span{font:400 9px var(--m);letter-spacing:.14em;color:var(--txt3);text-transform:uppercase}
+.sum.hot{border-color:rgba(232,50,62,.4)}
+.sum.hot b{color:var(--red)}
+/* step3 form */
+.frm .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:620px){.frm .fgrid{grid-template-columns:1fr}}
+.fld label{display:block;font:700 10px var(--m);letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);margin-bottom:7px}
+.fld input,.fld textarea{width:100%;background:#0c0c0f;border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt)}
+.fld textarea{min-height:100px;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(232,50,62,.14)}
+.fld .ferr{display:none;color:#ff8b93;font:400 11px var(--m);margin-top:5px}
+.fld.err input,.fld.err textarea{border-color:var(--red)}
+.fld.err .ferr{display:block}
+/* ticket */
+.tkt{display:grid;grid-template-columns:1fr 200px;position:relative;background:#0d0d11;border:1px solid var(--line2);border-radius:18px;overflow:hidden}
+.tkt::before,.tkt::after{content:'';position:absolute;right:calc(200px - 11px);width:22px;height:22px;border-radius:99px;background:var(--bg);border:1px solid var(--line2);z-index:2}
+.tkt::before{top:-12px}.tkt::after{bottom:-12px}
+.tktm{padding:26px 30px}
+.tktm h4{font:700 10.5px var(--m);letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.trow{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.trow span{font:400 10px var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);padding-top:3px}
+.trow b{font-weight:700;font-size:14px;word-break:break-word}
+.tstub{border-left:2px dashed var(--line2);padding:22px 16px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:rgba(232,50,62,.07)}
+.tstub .tsd{font:900 32px/1 var(--f)}
+.tstub .tsm{font:700 10.5px var(--m);letter-spacing:.28em;color:var(--red);text-transform:uppercase;margin:5px 0 12px}
+.tstub .tst{font:700 13px var(--m)}
+.tstub .tsh{margin-top:14px;font:400 8.5px var(--m);letter-spacing:.16em;color:var(--txt3);text-transform:uppercase}
+@media(max-width:620px){.tkt{grid-template-columns:1fr}.tkt::before,.tkt::after{display:none}.tstub{border-left:none;border-top:2px dashed var(--line2)}.tktm{padding:20px}}
+/* success */
+.sucbox{text-align:center;padding:16px 0}
+.okring{width:88px;height:88px;border-radius:99px;margin:0 auto 22px;display:grid;place-items:center;background:rgba(47,191,113,.1);border:2px solid rgba(47,191,113,.4);color:var(--ok)}
+.okring .ic{width:38px;height:38px}
+.sucbox .sub{margin:0 auto 26px}
+.succta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.empty{padding:44px 20px;text-align:center;color:var(--txt3)}
+.empty b{display:block;color:var(--txt2);font:800 15px var(--f);text-transform:uppercase;margin:10px 0 6px}
+/* toasts */
+#toasts{position:fixed;right:16px;bottom:16px;z-index:3000;display:flex;flex-direction:column;gap:9px;max-width:min(360px,calc(100vw - 32px))}
+.toast{background:var(--panel2);border:1px solid var(--line2);border-left:3px solid var(--ok);border-radius:12px;padding:14px 17px;font-size:13.5px;box-shadow:0 16px 40px -12px rgba(0,0,0,.7);animation:tin .3s}
+.toast.err{border-left-color:var(--red)}
+.toast.out{animation:tout .3s forwards}
+@keyframes tin{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes tout{to{transform:translateX(40px);opacity:0}}
+/* modal */
+.mo{position:fixed;inset:0;z-index:1500;display:grid;place-items:center;padding:18px}
+.mobk{position:absolute;inset:0;background:rgba(4,4,6,.85);backdrop-filter:blur(6px)}
+.mocard{position:relative;width:min(760px,94vw);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid var(--line2);border-radius:18px;animation:mup .3s}
+@keyframes mup{from{transform:translateY(22px);opacity:0}to{transform:none;opacity:1}}
+.mox{position:absolute;top:12px;right:12px;z-index:5;width:38px;height:38px;border-radius:99px;background:rgba(8,8,10,.8);border:1px solid var(--line2);display:grid;place-items:center}
+.mox:hover{color:var(--red);border-color:var(--red)}
+.mox .ic{width:15px;height:15px}
+.wbig{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+.wmeta{padding:22px 24px}
+.wmeta h3{font:900 20px/1.2 var(--f);text-transform:uppercase;margin:8px 0 6px}
+.wmeta p{color:var(--txt2);font-size:13.5px}
+.cnf{padding:30px}
+.cnf h3{font:900 19px var(--f);text-transform:uppercase}
+.cnf p{color:var(--txt2);margin:12px 0 22px;font-size:13.5px}
+.cnfb{display:flex;gap:10px;justify-content:flex-end}
+/* ============ admin ============ */
+.adwrap{padding:100px 0 80px;min-height:100vh}
+.adhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.tabs button{padding:10px 20px;border-radius:99px;border:1px solid var(--line);font:700 11px var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--txt2)}
+.tabs button.on{border-color:var(--red);color:var(--red);background:rgba(232,50,62,.08)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:660px}
+.tblw{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px}
+.tbl th{text-align:left;font:700 9px var(--m);letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);padding:12px 14px;border-bottom:1px solid var(--line);background:#0d0d10;white-space:nowrap}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:hover td{background:rgba(255,255,255,.02)}
+.tbl .tid{font:700 11.5px var(--m);color:var(--red)}
+.badge{display:inline-block;padding:4px 10px;border-radius:6px;font:700 9.5px var(--m);letter-spacing:.1em;text-transform:uppercase}
+.b-new{color:#ff8b93;background:rgba(232,50,62,.15)}
+.b-confirmed{color:#5fe09a;background:rgba(47,191,113,.15)}
+.b-completed{color:#7adccd;background:rgba(24,179,160,.15)}
+.b-cancelled{color:#9a98a0;background:rgba(160,158,168,.15)}
+.b-available{color:#5fe09a;background:rgba(47,191,113,.15)}
+.b-held{color:var(--warn);background:rgba(226,160,14,.15)}
+.b-booked{color:#ff8b93;background:rgba(232,50,62,.15)}
+.b-blocked{color:#9a98a0;background:rgba(160,158,168,.15)}
+.ract{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.rbtn{padding:7px 11px;border-radius:8px;border:1px solid var(--line);font:700 10px var(--m);letter-spacing:.06em;text-transform:uppercase;color:var(--txt2)}
+.rbtn:hover{color:var(--txt);border-color:var(--line2);background:var(--panel2)}
+.rbtn.dg:hover{color:var(--red);border-color:var(--red)}
+.adctl{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:18px}
+.adctl .fld{min-width:150px}
+.adcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:18px}
+.adcard h3{font:800 15px var(--f);text-transform:uppercase;margin-bottom:4px}
+.adcard .scs{color:var(--txt2);font-size:12.5px;margin-bottom:16px}
+.lgn{min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(55% 40% at 50% 0%,rgba(232,50,62,.12),transparent 70%)}
+.lgn-c{width:min(400px,100%);background:var(--panel);border:1px solid var(--line2);border-radius:20px;padding:34px 30px;position:relative;overflow:hidden}
+.lgn-c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.lgn-c h1{font:900 22px/1 var(--f);text-transform:uppercase;margin:12px 0 4px}
+.lgn-c .hint{margin-top:20px;padding:12px 15px;border:1px dashed var(--line2);border-radius:10px;font:400 11px/1.7 var(--m);color:var(--txt2)}
+.lgn-c .hint b{color:var(--red)}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nv-in wrap">
+    <a class="logo" href="#/"><span class="lgm"></span><span id="brandname">VCUTS</span></a>
+    <div class="nv-links" id="nvlinks">
+      <a href="#/" data-r="home">Home</a>
+      <a href="#/work" data-r="work">Work</a>
+      <a href="#/services" data-r="services">Services</a>
+    </div>
+    <div class="nv-act">
+      <a class="icb" id="navwa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.65 15L2 22l5.13-1.32A10 10 0 1 0 12 2zm4.5 13.6c-.2.55-1.15 1.06-1.6 1.1-.45.05-.87.2-3-.7-2.5-1.07-4.1-3.7-4.22-3.87-.12-.17-.8-1.1-.8-2.1s.52-1.48.7-1.68c.2-.2.42-.25.56-.25h.4c.13 0 .3-.03.46.36.17.4.6 1.5.65 1.6.05.1.08.23.01.36-.07.14-.1.22-.2.35l-.3.35c-.1.1-.2.22-.09.43.11.2.5.85 1.06 1.37.72.67 1.33.88 1.52.98.2.1.31.08.43-.05.12-.13.5-.6.64-.8.13-.2.27-.16.45-.09.18.07 1.15.55 1.35.65.2.1.33.15.38.23.05.09.05.5-.15 1.05z"/></svg>
+      </a>
+      <a class="btn solid sm" href="#/book">Book Now</a>
+      <button class="burger" id="burger" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<div id="app"></div>
+<div id="toasts"></div>
+<div id="modal"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- tiny helpers ---------- */
+function $(s){ return document.querySelector(s); }
+function $$(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); }
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+  });
+}
+function toast(msg, type){
+  var t = document.createElement('div');
+  t.className = 'toast' + (type === 'err' ? ' err' : '');
+  t.textContent = msg;
+  $('#toasts').appendChild(t);
+  setTimeout(function(){ t.classList.add('out'); setTimeout(function(){ t.remove(); }, 320); }, 3400);
+}
+var IC = {
+  play:'<svg class="ic" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>',
+  check:'<svg class="ic" viewBox="0 0 24 24"><path d="M9.5 16.2 5.3 12l-1.5 1.4 5.7 5.7L20 8.6l-1.4-1.4z"/></svg>',
+  x:'<svg class="ic" viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6z"/></svg>',
+  wa:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.65 15L2 22l5.13-1.32A10 10 0 1 0 12 2zm4.5 13.6c-.2.55-1.15 1.06-1.6 1.1-.45.05-.87.2-3-.7-2.5-1.07-4.1-3.7-4.22-3.87-.12-.17-.8-1.1-.8-2.1s.52-1.48.7-1.68c.2-.2.42-.25.56-.25h.4c.13 0 .3-.03.46.36.17.4.6 1.5.65 1.6.05.1.08.23.01.36-.07.14-.1.22-.2.35l-.3.35c-.1.1-.2.22-.09.43.11.2.5.85 1.06 1.37.72.67 1.33.88 1.52.98.2.1.31.08.43-.05.12-.13.5-.6.64-.8.13-.2.27-.16.45-.09.18.07 1.15.55 1.35.65.2.1.33.15.38.23.05.09.05.5-.15 1.05z"/></svg>',
+  arr:'<svg class="ic" viewBox="0 0 24 24"><path d="M13.2 5 12 6.2 16.8 11H4v2h12.8L12 17.8 13.2 19l7-7z"/></svg>'
+};
+function ic(n){ return IC[n] || ''; }
+function pic(seed,w,h){ return 'https://picsum.photos/seed/' + seed + '/' + w + '/' + h + '.jpg'; }
+
+/* ---------- dates ---------- */
+var WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var MOF = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+function pad(n){ return (n < 10 ? '0' : '') + n; }
+function dstr(d){ return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+function today(){ return dstr(new Date()); }
+function pdate(ds){ var p = ds.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+function addDays(ds, n){ var d = pdate(ds); d.setDate(d.getDate()+n); return dstr(d); }
+function fmtDate(ds){ var d = pdate(ds); return WD[d.getDay()] + ', ' + d.getDate() + ' ' + MO[d.getMonth()]; }
+function fmtDateLong(ds){ var d = pdate(ds); return d.getDate() + ' ' + MOF[d.getMonth()] + ' ' + d.getFullYear(); }
+function fmtTime(t){
+  var h = +t.split(':')[0], m = t.split(':')[1];
+  var ap = h < 12 ? 'AM' : 'PM'; var hh = h % 12; if(hh === 0) hh = 12;
+  return hh + ':' + m + ' ' + ap;
+}
+function endHour(t){ var h = +t.split(':')[0], m = t.split(':')[1]; return pad(h+1) + ':' + m; }
+function digits(s){ return String(s || '').replace(/[^0-9]/g, ''); }
+
+/* ---------- storage ---------- */
+var store = {
+  get: function(k, d){ try{ var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set: function(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+var S = store.get('vbk_settings', null);
+if(!S){
+  S = { brand:'VCUTS', name:'Vasanth', whatsapp:'919876543210', pass:'admin123' };
+  store.set('vbk_settings', S);
+}
+function getSlots(){ return store.get('vbk_slots', []); }
+function saveSlots(a){ store.set('vbk_slots', a); }
+function getBookings(){ return store.get('vbk_bookings', []); }
+function saveBookings(a){ store.set('vbk_bookings', a); }
+function findSlot(id){ var a = getSlots(); for(var i=0;i<a.length;i++){ if(a[i].id === id) return a[i]; } return null; }
+function setSlotStatus(id, status, bookingId){
+  var a = getSlots();
+  for(var i=0;i<a.length;i++){ if(a[i].id === id){ a[i].status = status; a[i].bookingId = bookingId || null; break; } }
+  saveSlots(a);
+}
+function waUrl(msg){ return 'https://wa.me/' + digits(S.whatsapp) + '?text=' + encodeURIComponent(msg); }
+
+/* ---------- seed demo data ---------- */
+function seed(){
+  var slots = [], i, j, ds, d, n, st;
+  var times = ['10:00','11:00','12:00','14:00','15:00','16:00','17:00'];
+  for(var day = 0; day < 14; day++){
+    ds = addDays(today(), day);
+    d = pdate(ds);
+    if(d.getDay() === 0) continue; /* Sunday off */
+    for(i = 0; i < times.length; i++){
+      n = day * 7 + i;
+      st = 'available';
+      if(n % 5 === 2) st = 'booked';
+      else if(n % 13 === 6) st = 'blocked';
+      slots.push({ id: ds + 'T' + times[i], date: ds, time: times[i], status: st, bookingId: null });
+    }
+  }
+  /* demo bookings so admin is not empty */
+  var bookings = [];
+  var s1 = null, s2 = null;
+  for(i = 0; i < slots.length; i++){
+    if(!s1 && slots[i].date === addDays(today(), 1) && slots[i].time === '11:00'){ s1 = slots[i]; }
+    if(!s2 && slots[i].status === 'booked' && slots[i].date >= today()){ s2 = slots[i]; }
+  }
+  if(s1){
+    s1.status = 'held'; s1.bookingId = 'VC-1001';
+    bookings.push({ id:'VC-1001', name:'Demo Client', phone:'919800000000', insta:'@democlient',
+      service:'Instagram Reel Editing', date:s1.date, time:s1.time, slotId:s1.id, videos:1,
+      desc:'Sample request — manage me in the admin panel.', status:'new', createdAt: Date.now() - 600000 });
+  }
+  if(s2){
+    s2.bookingId = 'VC-1002';
+    bookings.push({ id:'VC-1002', name:'Rahul Verma', phone:'919811223344', insta:'@rahul.vlogs',
+      service:'YouTube Video Editing', date:s2.date, time:s2.time, slotId:s2.id, videos:2,
+      desc:'Two podcast cutdowns this week.', status:'confirmed', createdAt: Date.now() - 3*86400000 });
+  }
+  store.set('vbk_slots', slots);
+  store.set('vbk_bookings', bookings);
+  store.set('vbk_seeded', '1');
+}
+if(!store.get('vbk_seeded', null)) seed();
+
+/* ---------- static content ---------- */
+var SERVICES = [
+  { name:'Instagram Reel Editing', desc:'Beat-synced cuts, kinetic captions, hooks built for the first 3 seconds.', turn:'24-48 hrs', price:'Rs 599', pop:true },
+  { name:'YouTube Video Editing', desc:'Full edits with b-roll, SFX and retention-first pacing.', turn:'2-4 days', price:'Rs 1,499' },
+  { name:'YouTube Shorts', desc:'Batch shorts — fast, punchy, loopable.', turn:'12-24 hrs', price:'Rs 299' },
+  { name:'Cinematic Editing', desc:'Film-style pacing, sound design and colour grading.', turn:'3-6 days', price:'Rs 2,999' },
+  { name:'Travel Video Editing', desc:'Story-driven travelogues from hours of raw footage.', turn:'2-4 days', price:'Rs 1,999' },
+  { name:'Product Video Editing', desc:'Conversion-focused product and launch ads.', turn:'1-3 days', price:'Rs 1,299' },
+  { name:'Wedding Highlights', desc:'Emotional highlight films with vow sync.', turn:'5-7 days', price:'Rs 4,999' },
+  { name:'Colour Grading Only', desc:'Pro grade on your finished edit.', turn:'24 hrs', price:'Rs 499' }
+];
+var WORK = [
+  { t:'Midnight Muscle — Gym Reel', c:'Reels', d:'0:32', s:'vcut-gym' },
+  { t:'Neon Bazaar — Brand Film', c:'Cinematic', d:'1:48', s:'vcut-neon' },
+  { t:'Monsoon Miles — Travelogue', c:'Travel', d:'3:05', s:'vcut-monsoon' },
+  { t:'Sneaker Drop — Product Ad', c:'Product', d:'0:45', s:'vcut-sneaker' },
+  { t:'Aisha and Rohan — Wedding Film', c:'Wedding', d:'4:12', s:'vcut-wed' },
+  { t:'Shorts Batch Vol. 3', c:'Shorts', d:'0:28', s:'vcut-shorts' }
+];
+
+/* ---------- modal ---------- */
+function openModal(html){
+  $('#modal').innerHTML = '<div class="mo"><div class="mobk" data-close></div><div class="mocard"><button class="mox" data-close aria-label="Close">' + ic('x') + '</button>' + html + '</div></div>';
+  document.body.classList.add('lock');
+  $$('#modal [data-close]').forEach(function(el){ el.addEventListener('click', closeModal); });
+}
+function closeModal(){ $('#modal').innerHTML = ''; document.body.classList.remove('lock'); }
+function askConfirm(title, body, okLabel, fn){
+  openModal('<div class="cnf"><h3>' + esc(title) + '</h3><p>' + esc(body) + '</p>' +
+    '<div class="cnfb"><button class="btn dark sm" data-close>Cancel</button>' +
+    '<button class="btn solid sm" id="cnfok">' + esc(okLabel) + '</button></div></div>');
+  $('#cnfok').addEventListener('click', function(){ closeModal(); fn(); });
+}
+
+/* ---------- public pages ---------- */
+function heroHTML(){
+  var mq = WORK.concat(WORK).map(function(w){ return '<img src="' + pic(w.s, 220, 124) + '" alt="' + esc(w.t) + '" loading="lazy">'; }).join('');
+  return '<section class="hero"><div class="wrap hero-in">' +
+    '<span class="k">VIDEO EDITOR · ' + esc(S.name).toUpperCase() + '</span>' +
+    '<h1 class="h1">Your Ideas.<br><span class="gradtx">My Edit.</span><br>One Powerful Story.</h1>' +
+    '<p class="sub">Professional video editing for Reels, Shorts, YouTube and brands. Watch the work, pick a slot on my timeline, hit send — I handle the rest.</p>' +
+    '<div class="hero-cta"><a class="btn solid big" href="#/book">Book Your Edit ' + ic('arr') + '</a>' +
+    '<a class="btn line big" href="#/work">' + ic('play') + ' Watch My Work</a></div>' +
+    '<div class="trust"><span class="chip"><i></i>Professional Editing</span><span class="chip"><i></i>Fast Delivery</span><span class="chip"><i></i>Creative Storytelling</span><span class="chip"><i></i>Social Optimized</span></div>' +
+    '</div><div class="mq"><div class="mq-in">' + mq + '</div></div></section>';
+}
+function statsHTML(){
+  return '<section class="sec" style="padding:0"><div class="wrap stats">' +
+    '<div><b>5<em>+</em></b><span>Years Editing</span></div>' +
+    '<div><b>320<em>+</em></b><span>Projects Cut</span></div>' +
+    '<div><b>140<em>+</em></b><span>Happy Clients</span></div>' +
+    '<div><b>12<em>M+</em></b><span>Views Generated</span></div></div></section>';
+}
+function workSection(){
+  return '<section class="sec"><div class="wrap">' +
+    '<span class="k">SELECTED CUTS</span><h2 class="h2">Featured <span class="rd">Work</span></h2>' +
+    '<div class="hsc" style="margin-top:26px">' +
+    WORK.slice(0, 5).map(function(w, i){
+      return '<article class="fcard" data-w="' + i + '" role="button" tabindex="0"><div class="fim">' +
+      '<img src="' + pic(w.s, 720, 405) + '" alt="' + esc(w.t) + '" loading="lazy"><span class="fdur">' + esc(w.d) + '</span></div>' +
+      '<div class="fbd"><span class="tag">' + esc(w.c) + '</span><h3>' + esc(w.t) + '</h3></div></article>';
+    }).join('') + '</div></div></section>';
+}
+function servicesSection(all){
+  var list = all ? SERVICES : SERVICES.slice(0, 5);
+  return '<section class="sec" style="background:#0c0c0f;border-block:1px solid var(--line)"><div class="wrap">' +
+    '<span class="k">SERVICES</span><h2 class="h2">What I <span class="rd">Edit</span></h2>' +
+    '<div style="margin-top:26px">' + list.map(function(s, i){
+      return '<div class="srow"><span class="sn">0' + (i+1) + '</span>' +
+      '<h3>' + esc(s.name) + (s.pop ? ' <span class="tag">POPULAR</span>' : '') + '</h3>' +
+      '<p class="sd">' + esc(s.desc) + '</p>' +
+      '<div class="smt"><span class="sm">TURNAROUND<b>' + esc(s.turn) + '</b></span>' +
+      '<span class="sm">FROM<b style="color:var(--red)">' + esc(s.price) + '</b></span>' +
+      '<button class="btn solid sm" data-book="' + esc(s.name) + '">Book</button></div></div>';
+    }).join('') + '</div>' +
+    (all ? '' : '<div style="margin-top:26px"><a class="btn line" href="#/services">Full Service Menu ' + ic('arr') + '</a></div>') +
+    '</div></section>';
+}
+function whySection(){
+  var items = [
+    ['Creative Storytelling','I find the story hiding in your footage and build the whole edit around it.'],
+    ['Fast Communication','Replies within hours, not days. You always know where your edit stands.'],
+    ['Attention to Detail','Frame-accurate cuts, matched colour, clean audio — details viewers feel.'],
+    ['Consistent Style','Every video looks like it belongs on the same channel. Your style, locked in.']
+  ];
+  return '<section class="sec"><div class="wrap"><span class="k">WHY ME</span><h2 class="h2">Why Creators <span class="rd">Stay</span></h2>' +
+    '<div class="why" style="margin-top:26px">' + items.map(function(w){
+      return '<div class="wcard"><h3>' + esc(w[0]) + '</h3><p>' + esc(w[1]) + '</p></div>';
+    }).join('') + '</div></div></section>';
+}
+function ctaSection(){
+  return '<section class="sec"><div class="wrap"><div class="ctab">' +
+    '<h2>Ready to cut something <span class="gradtx">powerful?</span></h2>' +
+    '<p>Pick a slot on the edit timeline, drop your requirements, and I take it from raw files to final cut.</p>' +
+    '<div class="row"><a class="btn solid big" href="#/book">Book Your Slot</a>' +
+    '<a class="btn line big" href="' + waUrl('Hi ' + S.name + ', I have a project in mind.') + '" target="_blank">' + ic('wa') + ' Chat First</a></div>' +
+    '</div></div></section>';
+}
+function footerHTML(){
+  return '<footer class="ft"><div class="wrap">' +
+    '<div class="ft-in">' +
+    '<div><a class="logo" href="#/"><span class="lgm"></span><span>' + esc(S.brand) + '</span></a>' +
+    '<p style="color:var(--txt2);font-size:13.5px;margin-top:12px;max-width:30ch">Precision-cut videos for creators and brands.</p></div>' +
+    '<div><h4>EXPLORE</h4><a class="fl" href="#/work">Editing Work</a><a class="fl" href="#/services">Services</a><a class="fl" href="#/book">Book a Slot</a></div>' +
+    '<div><h4>STUDIO</h4><a class="fl" href="' + waUrl('Hi!') + '" target="_blank">WhatsApp</a>' +
+    '<a class="fl" href="#/admin">Admin Login</a></div>' +
+    '</div><div class="ft-b"><span>© ' + new Date().getFullYear() + ' ' + esc(S.brand) + ' — cut with precision.</span><span>Mon-Sat · 10:00-19:00</span></div>' +
+    '</div></footer>';
+}
+function bindCommon(){
+  $$('[data-book]').forEach(function(b){
+    b.addEventListener('click', function(){
+      store.set('vbk_pre', b.getAttribute('data-book'));
+      location.hash = '#/book';
+    });
+  });
+  $$('[data-w]').forEach(function(c){
+    var go = function(){
+      var w = WORK[+c.getAttribute('data-w')];
+      openModal('<img class="wbig" src="' + pic(w.s, 960, 540) + '" alt="' + esc(w.t) + '">' +
+        '<div class="wmeta"><span class="tag">' + esc(w.c) + '</span><h3>' + esc(w.t) + '</h3>' +
+        '<p>Duration ' + esc(w.d) + ' · This is a demo thumbnail — swap in your real video files when ready. Book a slot and send your footage over WhatsApp.</p>' +
+        '<div style="margin-top:16px"><a class="btn solid sm" href="#/book" data-close>Book This Kind of Edit</a></div></div>');
+    };
+    c.addEventListener('click', go);
+    c.addEventListener('keydown', function(e){ if(e.key === 'Enter') go(); });
+  });
+}
+function HomePage(){
+  $('#app').innerHTML = heroHTML() + statsHTML() + workSection() + servicesSection(false) + whySection() + ctaSection() + footerHTML();
+  bindCommon();
+}
+function WorkPage(){
+  $('#app').innerHTML = '<section class="sec" style="padding-top:110px"><div class="wrap">' +
+    '<span class="k">PORTFOLIO</span><h2 class="h2">The <span class="rd">Edit Reel</span></h2>' +
+    '<p class="sub" style="margin-bottom:28px">Every project below shipped on a deadline. Tap any card to preview.</p>' +
+    '<div class="hsc">' + WORK.map(function(w, i){
+      return '<article class="fcard" data-w="' + i + '" role="button" tabindex="0"><div class="fim">' +
+      '<img src="' + pic(w.s, 720, 405) + '" alt="' + esc(w.t) + '" loading="lazy"><span class="fdur">' + esc(w.d) + '</span></div>' +
+      '<div class="fbd"><span class="tag">' + esc(w.c) + '</span><h3>' + esc(w.t) + '</h3></div></article>';
+    }).join('') + '</div></div></section>' + footerHTML();
+  bindCommon();
+}
+function ServicesPage(){
+  $('#app').innerHTML = '<section class="sec" style="padding-top:110px"><div class="wrap">' +
+    '<span class="k">THE MENU</span><h2 class="h2">Editing <span class="rd">Services</span></h2>' +
+    '<p class="sub" style="margin-bottom:28px">Straight pricing, honest turnarounds. Final quote depends on footage volume.</p>' +
+    '</div></section>' + servicesSection(true) + ctaSection() + footerHTML();
+  bindCommon();
+}
+
+/* ---------- booking flow ---------- */
+var STEPS = ['Service', 'Date & Slot', 'Details', 'Review'];
+var bk = { step:1, service:'', date:'', slot:'', name:'', phone:'', insta:'', videos:1, desc:'' };
+
+function BookPage(){
+  var pre = store.get('vbk_pre', '');
+  if(pre){
+    bk.service = pre;
+    store.set('vbk_pre', '');
+    if(bk.step === 1) bk.step = 2;
+  }
+  $('#app').innerHTML = '<section class="bkwrap"><div class="wrap">' +
+    '<span class="k">BOOKING · SHOWTIME</span>' +
+    '<h1 class="h1" style="font-size:clamp(2rem,5vw,3.4rem);margin-top:12px">Pick Your <span class="gradtx">Slot</span></h1>' +
+    '<p class="sub" style="margin-top:10px">Like choosing a cinema seat — open means go. Your slot is held until I confirm on WhatsApp.</p>' +
+    '<div class="stepper" id="stepper"></div>' +
+    '<div class="bcard" id="bstep"></div>' +
+    '</div></section>' + footerHTML();
+  drawStep();
+}
+function drawStepper(){
+  $('#stepper').innerHTML = STEPS.map(function(s, i){
+    var n = i + 1;
+    var cls = n < bk.step ? 'done' : (n === bk.step ? 'cur' : '');
+    return '<div class="stp ' + cls + '" data-go="' + n + '"><span class="stpn">' + n + '</span><span class="stpl">' + esc(s) + '</span></div>';
+  }).join('<span class="stln"></span>');
+  $$('#stepper .stp').forEach(function(el){
+    el.addEventListener('click', function(){
+      var n = +el.getAttribute('data-go');
+      if(n < bk.step){ bk.step = n; drawStep(); }
+    });
+  });
+}
+function navHTML(nextOk, backLabel){
+  return '<div class="bnav"><button type="button" class="btn dark" data-back>' + esc(backLabel) + '</button>' +
+    (nextOk === null ? '' : '<button type="button" class="btn solid" data-next' + (nextOk ? '' : ' disabled') + '>Continue</button>') + '</div>';
+}
+function drawStep(){
+  drawStepper();
+  var el = $('#bstep');
+  if(bk.step === 1) stepService(el);
+  else if(bk.step === 2) stepSlots(el);
+  else if(bk.step === 3) stepForm(el);
+  else if(bk.step === 4) stepReview(el);
+}
+/* STEP 1 — service */
+function stepService(el){
+  el.innerHTML = '<h3 class="btitle">1 · What are we cutting?</h3><div class="svclist">' +
+    SERVICES.map(function(s){
+      return '<button type="button" class="svcr' + (bk.service === s.name ? ' on' : '') + '" data-sv="' + esc(s.name) + '">' +
+        '<span class="svch">' + esc(s.name) + (s.pop ? ' <span class="tag">POPULAR</span>' : '') + '</span>' +
+        '<span class="svcm">' + esc(s.turn) + ' · <b>' + esc(s.price) + '</b></span>' +
+        '<span class="svcd">' + esc(s.desc) + '</span>' +
+        '<span class="svck">' + ic('check') + '</span></button>';
+    }).join('') + '</div>' + navHTML(!!bk.service, 'Back to site');
+  $$('.svcr', el).forEach(function(b){
+    b.addEventListener('click', function(){
+      bk.service = b.getAttribute('data-sv');
+      stepService(el);
+    });
+  });
+  $('[data-back]', el).addEventListener('click', function(){ location.hash = '#/'; });
+  var nx = $('[data-next]', el);
+  if(nx) nx.addEventListener('click', function(){ bk.step = 2; drawStep(); });
+}
+/* STEP 2 — date + seat grid */
+function stepSlots(el){
+  var map = {};
+  getSlots().forEach(function(s){
+    if(s.date < today()) return;
+    if(!map[s.date]) map[s.date] = { date:s.date, total:0, open:0 };
+    map[s.date].total++;
+    if(s.status === 'available') map[s.date].open++;
+  });
+  var dates = [];
+  Object.keys(map).sort().forEach(function(k){ dates.push(map[k]); });
+  dates = dates.slice(0, 12);
+  if(!bk.date){
+    for(var i = 0; i < dates.length; i++){ if(dates[i].open > 0){ bk.date = dates[i].date; break; } }
+    if(!bk.date && dates.length) bk.date = dates[0].date;
+  }
+  if(bk.slot && bk.slot.indexOf(bk.date) !== 0) bk.slot = '';
+
+  if(!dates.length){
+    el.innerHTML = '<div class="empty"><b>No dates on the timeline right now</b>New slots open regularly — message me and I will fit you in.<br><br>' +
+      '<a class="btn solid" href="' + waUrl('Hi! No slots were open on the website - can you fit me in?') + '" target="_blank">' + ic('wa') + ' Ask on WhatsApp</a></div>';
+    return;
+  }
+  var daySlots = getSlots().filter(function(s){ return s.date === bk.date; });
+  daySlots.sort(function(a, b){ return a.time < b.time ? -1 : 1; });
+  var nAvail = 0, nTaken = 0;
+  daySlots.forEach(function(s){ if(s.status === 'available') nAvail++; else if(s.status !== 'cancelled') nTaken++; });
+
+  el.innerHTML = '<h3 class="btitle">2 · ' + esc(fmtDate(bk.date)) + '</h3>' +
+    '<div class="dstrip">' + dates.map(function(d){
+      return '<button type="button" class="dchip' + (bk.date === d.date ? ' on' : '') + '" data-d="' + d.date + '">' +
+        '<span class="dw">' + WD[pdate(d.date).getDay()] + '</span><span class="dd">' + pdate(d.date).getDate() + '</span>' +
+        '<span class="dm">' + MO[pdate(d.date).getMonth()] + '</span><span class="dn">' + d.open + ' open</span></button>';
+    }).join('') + '</div>' +
+    '<div class="screen"><span>EDIT TIMELINE</span></div>' +
+    '<div class="seatgrid" id="sgrid">' + daySlots.map(function(s){
+      var sel = bk.slot === s.id;
+      var cls = sel ? 'selected' : s.status;
+      var lab = sel ? 'SELECTED' : (s.status === 'available' ? 'OPEN' : s.status.toUpperCase());
+      return '<button type="button" class="seat ' + cls + '" data-slot="' + s.id + '" aria-pressed="' + sel + '">' +
+        '<span class="st">' + s.time + '</span><span class="ss">' + lab + '</span></button>';
+    }).join('') + '</div>' +
+    '<div class="legend"><span><i class="lg open"></i>Available</span><span><i class="lg sel"></i>Selected</span>' +
+    '<span><i class="lg booked"></i>Booked</span><span><i class="lg held"></i>Held (pending)</span><span><i class="lg blocked"></i>Blocked</span></div>' +
+    '<div class="sumrow"><div class="sum"><b>' + daySlots.length + '</b><span>Total slots</span></div>' +
+    '<div class="sum"><b style="color:var(--ok)">' + nAvail + '</b><span>Available</span></div>' +
+    '<div class="sum"><b style="color:#8c3a41">' + nTaken + '</b><span>Unavailable</span></div>' +
+    '<div class="sum hot"><b>' + (bk.slot ? 1 : 0) + '</b><span>Selected</span></div></div>' +
+    navHTML(!!bk.slot, 'Back');
+
+  $$('.dchip', el).forEach(function(c){
+    c.addEventListener('click', function(){
+      bk.date = c.getAttribute('data-d');
+      bk.slot = '';
+      drawStep();
+    });
+  });
+  $('#sgrid').addEventListener('click', function(e){
+    var b = e.target.closest('.seat');
+    if(!b) return;
+    var id = b.getAttribute('data-slot');
+    var sl = findSlot(id);
+    if(bk.slot !== id && sl && sl.status !== 'available'){
+      b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+      toast('That slot is ' + sl.status + ' — pick an open one.', 'err');
+      return;
+    }
+    bk.slot = (bk.slot === id) ? '' : id;
+    drawStep();
+  });
+  $('[data-back]', el).addEventListener('click', function(){ bk.step = 1; drawStep(); });
+  var nx = $('[data-next]', el);
+  if(nx) nx.addEventListener('click', function(){ bk.step = 3; drawStep(); });
+}
+/* STEP 3 — details form */
+function stepForm(el){
+  el.innerHTML = '<h3 class="btitle">3 · Tell me about the project</h3>' +
+    '<div class="frm"><div class="fgrid">' +
+    '<div class="fld" id="fl-name"><label for="fname">Full Name *</label><input id="fname" autocomplete="name" value="' + esc(bk.name) + '"><p class="ferr">Please enter your name.</p></div>' +
+    '<div class="fld" id="fl-phone"><label for="fphone">WhatsApp Number *</label><input id="fphone" type="tel" inputmode="tel" value="' + esc(bk.phone) + '"><p class="ferr">Enter a valid number (8+ digits).</p></div>' +
+    '<div class="fld" id="fl-insta"><label for="finsta">Instagram Username</label><input id="finsta" placeholder="@yourhandle" value="' + esc(bk.insta) + '"></div>' +
+    '<div class="fld" id="fl-videos"><label for="fvideos">Number of Videos</label><input id="fvideos" type="number" min="1" max="50" value="' + (bk.videos || 1) + '"></div>' +
+    '</div><div style="height:16px"></div>' +
+    '<div class="fld" id="fl-desc"><label for="fdesc">Project Details *</label><textarea id="fdesc" placeholder="What is the footage, the vibe, the goal?">' + esc(bk.desc) + '</textarea><p class="ferr">A sentence or two about the project.</p></div>' +
+    '</div>' + navHTML(true, 'Back');
+  $('[data-back]', el).addEventListener('click', function(){ bk.step = 2; drawStep(); });
+  $('[data-next]', el).addEventListener('click', function(){
+    bk.name = $('#fname').value.trim();
+    bk.phone = $('#fphone').value.trim();
+    bk.insta = $('#finsta').value.trim();
+    bk.videos = Math.max(1, Math.min(50, +$('#fvideos').value || 1));
+    bk.desc = $('#fdesc').value.trim();
+    var ok = true;
+    function mark(id, bad){ var f = $(id); if(f){ f.classList.toggle('err', bad); if(bad) ok = false; } }
+    mark('#fl-name', bk.name.length < 2);
+    mark('#fl-phone', digits(bk.phone).length < 8);
+    mark('#fl-desc', bk.desc.length < 10);
+    if(!ok){ toast('A few fields need attention.', 'err'); return; }
+    bk.step = 4; drawStep();
+  });
+}
+/* STEP 4 — ticket + send */
+function stepReview(el){
+  var sl = findSlot(bk.slot);
+  if(!sl || sl.status !== 'available'){ bk.step = 2; drawStep(); return; }
+  el.innerHTML = '<h3 class="btitle">4 · Review your booking</h3>' +
+    '<div class="tkt"><div class="tktm"><h4>BOOKING SUMMARY</h4>' +
+    '<div class="trow"><span>Client</span><b>' + esc(bk.name) + '</b></div>' +
+    '<div class="trow"><span>Service</span><b>' + esc(bk.service) + '</b></div>' +
+    '<div class="trow"><span>Date</span><b>' + esc(fmtDateLong(sl.date)) + '</b></div>' +
+    '<div class="trow"><span>Slot</span><b>' + fmtTime(sl.time) + ' - ' + fmtTime(endHour(sl.time)) + '</b></div>' +
+    '<div class="trow"><span>Videos</span><b>' + bk.videos + '</b></div>' +
+    '<div class="trow"><span>Instagram</span><b>' + esc(bk.insta || '—') + '</b></div>' +
+    '<div class="trow"><span>Details</span><b>' + esc(bk.desc) + '</b></div>' +
+    '</div><div class="tstub"><div class="tsd">' + pdate(sl.date).getDate() + '</div>' +
+    '<div class="tsm">' + MO[pdate(sl.date).getMonth()] + '</div>' +
+    '<div class="tst">' + fmtTime(sl.time) + '</div><div class="tsm">HOLD 30 MIN</div></div></div>' +
+    '<p style="color:var(--txt3);font:400 11px var(--m);margin-top:14px">Slot is held 30 minutes after sending, until confirmed on WhatsApp. Payment after scope is agreed.</p>' +
+    '<div class="bnav"><button type="button" class="btn dark" data-back>Edit Details</button>' +
+    '<button type="button" class="btn solid big" id="sendbk">' + ic('wa') + ' Send Booking Request</button></div>';
+  $('[data-back]', el).addEventListener('click', function(){ bk.step = 3; drawStep(); });
+  $('#sendbk').addEventListener('click', function(){ sendBooking(); });
+}
+function sendBooking(){
+  /* server-style conflict re-check right before saving */
+  var sl = findSlot(bk.slot);
+  if(!sl || sl.status !== 'available'){
+    toast('Sorry — that slot was just booked. Please choose another available slot.', 'err');
+    bk.slot = '';
+    bk.step = 2;
+    drawStep();
+    return;
+  }
+  var bookings = getBookings();
+  var mx = 1000;
+  bookings.forEach(function(x){ var n = +String(x.id).replace(/[^0-9]/g, ''); if(n > mx) mx = n; });
+  var id = 'VC-' + (mx + 1);
+  bookings.push({
+    id:id, name:bk.name, phone:digits(bk.phone), insta:bk.insta, service:bk.service,
+    date:sl.date, time:sl.time, slotId:sl.id, videos:bk.videos, desc:bk.desc,
+    status:'new', createdAt:Date.now()
+  });
+  saveBookings(bookings);
+  setSlotStatus(sl.id, 'held', id);
+
+  var msg = 'Hello ' + S.name + ',\n\n' +
+    'I would like to book a video editing slot.\n\n' +
+    'Name: ' + bk.name + '\n' +
+    'Instagram: ' + (bk.insta || '—') + '\n' +
+    'WhatsApp: ' + digits(bk.phone) + '\n' +
+    'Service: ' + bk.service + '\n' +
+    'Date: ' + fmtDateLong(sl.date) + '\n' +
+    'Slot: ' + fmtTime(sl.time) + ' - ' + fmtTime(endHour(sl.time)) + '\n' +
+    'Number of Videos: ' + bk.videos + '\n' +
+    'Project Details: ' + bk.desc + '\n' +
+    'Booking ID: ' + id + '\n\n' +
+    'Please contact me regarding the project.';
+  window.open(waUrl(msg), '_blank');
+  bk.step = 5;
+  drawStepper();
+  $('#bstep').innerHTML = '<div class="sucbox">' +
+    '<div class="okring">' + ic('check') + '</div>' +
+    '<h2 class="h2">Request <span class="rd">Sent</span></h2>' +
+    '<p class="sub">Thank you for choosing my editing service. Press send in the WhatsApp tab that just opened — your slot <b style="color:var(--txt)">' + fmtTime(sl.time) + ' on ' + fmtDate(sl.date) + '</b> is held for 30 minutes.</p>' +
+    '<div class="tkt" style="text-align:left;max-width:560px;margin:0 auto 28px"><div class="tktm"><h4>YOUR TICKET · ' + esc(id) + '</h4>' +
+    '<div class="trow"><span>Service</span><b>' + esc(bk.service) + '</b></div>' +
+    '<div class="trow"><span>Date</span><b>' + esc(fmtDateLong(sl.date)) + '</b></div>' +
+    '<div class="trow"><span>Slot</span><b>' + fmtTime(sl.time) + ' - ' + fmtTime(endHour(sl.time)) + '</b></div>' +
+    '</div><div class="tstub"><div class="tsd">' + pdate(sl.date).getDate() + '</div><div class="tsm">' + MO[pdate(sl.date).getMonth()] + '</div><div class="tst">' + esc(id) + '</div></div></div>' +
+    '<div class="succta"><a class="btn solid big" href="' + waUrl('Hi, this is about booking ' + id + '.') + '" target="_blank">' + ic('wa') + ' Open WhatsApp</a>' +
+    '<a class="btn line big" href="#/">Back to Home</a></div></div>';
+  bk.slot = '';
+  toast('Booking created — WhatsApp should open in a new tab.');
+}
+
+/* ---------- admin ---------- */
+function AdminPage(){
+  if(sessionStorage.getItem('vbk_admin') !== '1'){ loginForm(); return; }
+  adminTabs('bookings');
+}
+function loginForm(){
+  $('#app').innerHTML = '<div class="lgn"><form class="lgn-c" id="lgn-f">' +
+    '<span class="k">ADMIN ACCESS</span><h1>Ticket Booth</h1>' +
+    '<p style="color:var(--txt2);font-size:13px;margin-bottom:20px">Sign in to manage slots and bookings.</p>' +
+    '<div class="fld"><label for="lpass">Password</label><input id="lpass" type="password" autocomplete="current-password"></div>' +
+    '<button class="btn solid" style="width:100%;margin-top:20px" type="submit">Sign In</button>' +
+    '<div class="hint">DEMO PASSWORD — <b>admin123</b><br>Change it in Admin → Settings.</div>' +
+    '<a href="#/" style="display:block;text-align:center;margin-top:16px;font:700 10.5px var(--m);letter-spacing:.14em;color:var(--txt3)">BACK TO SITE</a>' +
+    '</form></div>';
+  $('#lgn-f').addEventListener('submit', function(e){
+    e.preventDefault();
+    if($('#lpass').value === S.pass){
+      sessionStorage.setItem('vbk_admin', '1');
+      toast('Welcome back.');
+      adminTabs('bookings');
+    } else {
+      toast('Wrong password.', 'err');
+    }
+  });
+}
+function adminTabs(tab){
+  $('#app').innerHTML = '<section class="adwrap"><div class="wrap">' +
+    '<div class="adhead"><div><span class="k">CONTROL ROOM</span><h1 class="h1" style="font-size:2rem">Admin</h1></div>' +
+    '<div style="display:flex;gap:10px"><a class="btn line sm" href="#/">View Site</a>' +
+    '<button class="btn dark sm" id="adout">Logout</button></div></div>' +
+    '<div class="tabs">' +
+    '<button data-tab="bookings"' + (tab === 'bookings' ? ' class="on"' : '') + '>Bookings</button>' +
+    '<button data-tab="slots"' + (tab === 'slots' ? ' class="on"' : '') + '>Slots</button>' +
+    '<button data-tab="settings"' + (tab === 'settings' ? ' class="on"' : '') + '>Settings</button>' +
+    '</div><div id="adbody"></div></div></section>';
+  $('#adout').addEventListener('click', function(){
+    sessionStorage.removeItem('vbk_admin');
+    location.hash = '#/';
+    toast('Signed out.', 'info');
+  });
+  $$('.tabs button').forEach(function(b){
+    b.addEventListener('click', function(){ adminTabs(b.getAttribute('data-tab')); });
+  });
+  if(tab === 'bookings') adminBookings();
+  else if(tab === 'slots') adminSlots();
+  else adminSettings();
+}
+function adminBookings(){
+  var bookings = getBookings().slice().reverse();
+  var body = $('#adbody');
+  if(!bookings.length){
+    body.innerHTML = '<div class="tblw"><div class="empty" style="min-width:200px"><b>No bookings yet</b>They land here the moment someone sends a request.</div></div>';
+    return;
+  }
+  body.innerHTML = '<div class="tblw"><div style="overflow-x:auto"><table class="tbl"><thead><tr>' +
+    '<th>Booking</th><th>Client</th><th>Service</th><th>Date · Slot</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead><tbody>' +
+    bookings.map(function(b){
+      var acts = '<div class="ract">';
+      if(b.status === 'new') acts += '<button class="rbtn" data-act="confirm" data-id="' + esc(b.id) + '">Confirm</button>' +
+        '<button class="rbtn dg" data-act="cancel" data-id="' + esc(b.id) + '">Cancel</button>';
+      else if(b.status === 'confirmed') acts += '<button class="rbtn" data-act="complete" data-id="' + esc(b.id) + '">Complete</button>' +
+        '<button class="rbtn dg" data-act="cancel" data-id="' + esc(b.id) + '">Cancel</button>';
+      acts += '<button class="rbtn dg" data-act="delete" data-id="' + esc(b.id) + '">Delete</button></div>';
+      return '<tr><td class="tid">' + esc(b.id) + '</td>' +
+        '<td><b>' + esc(b.name) + '</b><br><span style="color:var(--txt3);font-size:11px">' + esc(b.insta || b.phone) + '</span></td>' +
+        '<td>' + esc(b.service) + '</td>' +
+        '<td>' + (b.date ? fmtDate(b.date) + '<br><span style="color:var(--txt3);font-size:11px">' + fmtTime(b.time) + '</span>' : '—') + '</td>' +
+        '<td><span class="badge b-' + esc(b.status) + '">' + esc(b.status).toUpperCase() + '</span></td>' +
+        '<td>' + acts + '</td></tr>';
+    }).join('') + '</tbody></table></div>' +
+    '<div style="padding:14px 16px;color:var(--txt3);font:400 10.5px var(--m)">Confirm → slot becomes BOOKED · Cancel → slot becomes AVAILABLE again · New requests hold slots automatically.</div></div>';
+  body.addEventListener('click', function(e){
+    var a = e.target.closest('[data-act]');
+    if(!a) return;
+    var id = a.getAttribute('data-id'), act = a.getAttribute('data-act');
+    if(act === 'delete'){
+      askConfirm('Delete booking ' + id + '?', 'This permanently removes the booking and frees its slot back to AVAILABLE.', 'Delete', function(){ doDelete(id); });
+      return;
+    }
+    doAction(id, act);
+  });
+}
+function doAction(id, act){
+  var bookings = getBookings(), b = null, i;
+  for(i = 0; i < bookings.length; i++){ if(bookings[i].id === id){ b = bookings[i]; break; } }
+  if(!b) return;
+  if(act === 'confirm'){ b.status = 'confirmed'; if(b.slotId) setSlotStatus(b.slotId, 'booked', id); }
+  else if(act === 'cancel'){
+    b.status = 'cancelled';
+    if(b.slotId){
+      var sl = findSlot(b.slotId);
+      if(sl && (sl.status === 'held' || sl.status === 'booked') && sl.bookingId === id) setSlotStatus(b.slotId, 'available', null);
+    }
+  }
+  else if(act === 'complete'){ b.status = 'completed'; if(b.slotId) setSlotStatus(b.slotId, 'booked', id); }
+  saveBookings(bookings);
+  toast('Booking ' + act + 'ed — public slots updated.');
+  adminBookings();
+}
+function doDelete(id){
+  var bookings = getBookings(), b = null, i;
+  for(i = 0; i < bookings.length; i++){ if(bookings[i].id === id){ b = bookings[i]; break; } }
+  if(!b) return;
+  if(b.slotId){
+    var sl = findSlot(b.slotId);
+    if(sl && (sl.status === 'held' || sl.status === 'booked') && sl.bookingId === id) setSlotStatus(b.slotId, 'available', null);
+  }
+  bookings = bookings.filter(function(x){ return x.id !== id; });
+  saveBookings(bookings);
+  toast('Booking deleted — slot freed.');
+  adminBookings();
+}
+function adminSlots(){
+  var d = store.get('vbk_seldate', today());
+  var list = getSlots().filter(function(s){ return s.date === d; });
+  list.sort(function(a, b){ return a.time < b.time ? -1 : 1; });
+  var body = $('#adbody');
+  body.innerHTML =
+    '<div class="adctl">' +
+    '<div class="fld"><label for="seld">Date</label><input type="date" id="seld" value="' + d + '"></div>' +
+    '<div class="fld"><label for="addt">Add slot at</label><input type="time" id="addt" value="18:00"></div>' +
+    '<button class="btn line sm" id="addslot">Add Slot</button>' +
+    '<button class="btn solid sm" id="gen7">Generate 7 Days</button>' +
+    '</div>' +
+    '<div class="tblw"><div style="overflow-x:auto"><table class="tbl"><thead><tr>' +
+    '<th>Date</th><th>Time</th><th>Status</th><th>Booking</th><th style="text-align:right">Actions</th></tr></thead><tbody>' +
+    (list.length ? list.map(function(s){
+      var blk = '<button class="rbtn" data-blk="' + s.id + '">' + (s.status === 'blocked' ? 'Unblock' : 'Block') + '</button>';
+      if(s.bookingId) blk = '<span style="font:400 10px var(--m);color:var(--txt3)">has booking</span>';
+      return '<tr><td>' + fmtDate(s.date) + '</td><td>' + fmtTime(s.time) + ' - ' + fmtTime(endHour(s.time)) + '</td>' +
+        '<td><span class="badge b-' + s.status + '">' + s.status.toUpperCase() + '</span></td>' +
+        '<td class="tid">' + esc(s.bookingId || '—') + '</td>' +
+        '<td><div class="ract">' + blk + ' <button class="rbtn dg" data-del="' + s.id + '">Delete</button></div></td></tr>';
+    }).join('') : '<tr><td colspan="5"><div class="empty" style="min-width:200px"><b>No slots on this date</b>Use Generate 7 Days or add a single slot above.</div></td></tr>') +
+    '</tbody></table></div></div>' +
+    '<div style="padding:14px 2px;color:var(--txt3);font:400 10.5px var(--m)">Blocked slots are hidden from public booking. Booked slots come from confirmed bookings.</div>';
+
+  $('#seld').addEventListener('change', function(){
+    store.set('vbk_seldate', $('#seld').value || today());
+    adminSlots();
+  });
+  $('#addslot').addEventListener('click', function(){
+    var dd = $('#seld').value || today();
+    var tt = $('#addt').value;
+    if(!tt){ toast('Pick a time first.', 'err'); return; }
+    var slots = getSlots();
+    var id = dd + 'T' + tt;
+    for(var i = 0; i < slots.length; i++){
+      if(slots[i].id === id){ toast('That slot already exists.', 'err'); return; }
+    }
+    slots.push({ id:id, date:dd, time:tt, status:'available', bookingId:null });
+    saveSlots(slots);
+    toast('Slot added — live on the public site.');
+    adminSlots();
+  });
+  $('#gen7').addEventListener('click', function(){
+    var start = $('#seld').value || today();
+    var slots = getSlots(), made = 0;
+    var times = ['10:00','11:00','12:00','14:00','15:00','16:00'];
+    for(var day = 0; day < 7; day++){
+      var ds = addDays(start, day);
+      if(pdate(ds).getDay() === 0) continue;
+      for(var i = 0; i < times.length; i++){
+        var id = ds + 'T' + times[i], exists = false;
+        for(var j = 0; j < slots.length; j++){ if(slots[j].id === id){ exists = true; break; } }
+        if(exists) continue;
+        slots.push({ id:id, date:ds, time:times[i], status:'available', bookingId:null });
+        made++;
+      }
+    }
+    saveSlots(slots);
+    toast('Generated ' + made + ' new slots from ' + fmtDate(start) + '.');
+    adminSlots();
+  });
+  body.addEventListener('click', function(e){
+    var bl = e.target.closest('[data-blk]');
+    if(bl){
+      var id = bl.getAttribute('data-blk');
+      var slots = getSlots();
+      for(var i = 0; i < slots.length; i++){
+        if(slots[i].id === id){
+          if(slots[i].bookingId){ toast('This slot has a booking — cancel the booking first.', 'err'); return; }
+          slots[i].status = (slots[i].status === 'blocked') ? 'available' : 'blocked';
+          break;
+        }
+      }
+      saveSlots(slots);
+      toast('Slot updated — public site refreshed.');
+      adminSlots();
+      return;
+    }
+    var del = e.target.closest('[data-del]');
+    if(del){
+      var did = del.getAttribute('data-del');
+      var all = getSlots();
+      var target = null;
+      for(var k = 0; k < all.length; k++){ if(all[k].id === did){ target = all[k]; break; } }
+      if(target && target.bookingId){ toast('Cancel/delete its booking first — the slot is linked.', 'err'); return; }
+      saveSlots(all.filter(function(x){ return x.id !== did; }));
+      toast('Slot deleted.');
+      adminSlots();
+    }
+  });
+}
+function adminSettings(){
+  var body = $('#adbody');
+  body.innerHTML =
+    '<div class="adcard"><h3>Studio & WhatsApp</h3><p class="scs">The WhatsApp number below is the single source for every wa.me link on the site — with country code, no + or spaces.</p>' +
+    '<div class="fgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' +
+    '<div class="fld"><label for="s-brand">Brand name</label><input id="s-brand" value="' + esc(S.brand) + '"></div>' +
+    '<div class="fld"><label for="s-name">Your name</label><input id="s-name" value="' + esc(S.name) + '"></div>' +
+    '<div class="fld" style="grid-column:1/-1"><label for="s-wa">WhatsApp number *</label><input id="s-wa" inputmode="numeric" value="' + esc(S.whatsapp) + '"><p class="ferr">Needs at least 10 digits.</p></div>' +
+    '</div><button class="btn solid" style="margin-top:18px" id="s-save">Save Settings</button></div>' +
+    '<div class="adcard"><h3>Admin Password</h3><p class="scs">Leave blank to keep the current password.</p>' +
+    '<div class="fld" style="max-width:320px"><label for="s-pass">New password</label><input id="s-pass" type="password" placeholder="min 4 characters"></div>' +
+    '<button class="btn line" style="margin-top:18px" id="p-save">Change Password</button></div>' +
+    '<div class="adcard" style="border-color:rgba(232,50,62,.4)"><h3>Danger Zone</h3><p class="scs">Wipes all slots and bookings, then reloads fresh demo data.</p>' +
+    '<button class="btn dark sm" style="color:#ff8b93;border-color:rgba(232,50,62,.5)" id="s-reset">Reset Demo Data</button></div>';
+
+  $('#s-save').addEventListener('click', function(){
+    var wa = digits($('#s-wa').value);
+    if(wa.length < 10){
+      $('#s-wa').closest('.fld').classList.add('err');
+      toast('That WhatsApp number looks too short.', 'err');
+      return;
+    }
+    $('#s-wa').closest('.fld').classList.remove('err');
+    S.brand = $('#s-brand').value.trim() || S.brand;
+    S.name = $('#s-name').value.trim() || S.name;
+    S.whatsapp = wa;
+    store.set('vbk_settings', S);
+    applySettings();
+    toast('Settings saved — WhatsApp links now point to the new number.');
+  });
+  $('#p-save').addEventListener('click', function(){
+    var p = $('#s-pass').value;
+    if(p && p.length >= 4){ S.pass = p; store.set('vbk_settings', S); $('#s-pass').value = ''; toast('Password updated.'); }
+    else toast('Password needs at least 4 characters.', 'err');
+  });
+  $('#s-reset').addEventListener('click', function(){
+    askConfirm('Reset everything?', 'Wipes all bookings and slots, then reseeds the demo data.', 'Reset', function(){
+      ['vbk_slots','vbk_bookings','vbk_seeded','vbk_pre','vbk_seldate'].forEach(function(k){ localStorage.removeItem(k); });
+      location.hash = '#/';
+      location.reload();
+    });
+  });
+}
+
+/* ---------- router ---------- */
+function setActive(r){
+  $$('#nvlinks a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-r') === r); });
+}
+function render(){
+  closeModal();
+  window.scrollTo(0, 0);
+  var h = location.hash || '#/';
+  if(h.indexOf('#/book') === 0){ setActive(''); BookPage(); }
+  else if(h.indexOf('#/admin') === 0){ setActive(''); AdminPage(); }
+  else if(h === '#/work'){ setActive('work'); WorkPage(); }
+  else if(h === '#/services'){ setActive('services'); ServicesPage(); }
+  else { setActive('home'); HomePage(); }
+}
+function applySettings(){
+  $('#brandname').textContent = S.brand;
+  $('#navwa').href = waUrl('Hi ' + S.name + ', I found your website.');
+  document.title = S.brand + ' — Video Editing by ' + S.name;
+}
+window.addEventListener('hashchange', render);
+window.addEventListener('scroll', function(){
+  var n = $('#nav');
+  if(n) n.classList.toggle('scr', window.scrollY > 20);
+}, { passive:true });
+ $('#burger').addEventListener('click', function(){ $('#nvlinks').classList.toggle('open'); });
+ $$('#nvlinks a').forEach(function(a){ a.addEventListener('click', function(){ $('#nvlinks').classList.remove('open'); }); });
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
+applySettings();
+render();
+})();
+</script>
+</body>
+</html>
